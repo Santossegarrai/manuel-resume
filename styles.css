@@ -1,0 +1,994 @@
+﻿/* ============================================================
+   DESIGN SYSTEM â€” Manuel Santos Portfolio
+   ============================================================ */
+
+:root {
+  --text-primary: #f0ece4;
+  --text-secondary: #9a9690;
+  --text-muted: #8a8480;
+  --text-accent: #c8b98a;
+
+  --rule-thickness: 1px;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --section-pad-v: 5vh;
+  --section-pad-h: clamp(32px, 8vw, 160px);
+
+  --transition-fade: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* â”€â”€â”€ RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #f0ece4;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ============================================================
+   PARALLAX BACKGROUND
+   #parallax-wrap is position:fixed â€” stays pinned to viewport.
+   JS animates background-position-y: 0% (top) â†’ 100% (bottom)
+   as user scrolls, revealing the image from top to bottom.
+   No background-attachment:fixed. No translateY on content.
+   Image 3000Ã—6000 (portrait) scales to cover viewport width,
+   giving plenty of panning room vertically.
+   ============================================================ */
+#parallax-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('Assets/Background-3000x6000.png');
+  background-size: auto 200%;
+  background-repeat: no-repeat;
+  background-position: center 0%;
+}
+
+
+/* â”€â”€â”€ SECTION BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.section {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  padding: 5vh clamp(32px, 8vw, 160px);
+  background: transparent;
+}
+
+.section-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+
+/* â”€â”€â”€ RULE BEFORE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.rule-before {
+  width: 32px;
+  height: 1px;
+  background: #c8b98a;
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+/* â”€â”€â”€ SECTION LABEL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ═══ TODOS los títulos de sección: "CORE AREAS", "FILM & DOCUMENTARY WORK", "EDUCATION", etc. ═══ */
+.section-label {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #c8b98a;
+  margin-bottom: 32px;
+}
+
+/* â”€â”€â”€ FADE-IN ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   SECTION 1 â€” HERO
+   ============================================================ */
+.section--hero {
+  min-height: 90svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10vh;
+  padding-bottom: 5vh;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 0 clamp(32px, 8vw, 160px);
+}
+
+/* ═══ "VISUAL DIRECTOR" — texto dorado pequeño encima del nombre ═══ */
+.hero-eyebrow {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #c8b98a;
+  margin-bottom: 11px;
+  opacity: 0.85;
+}
+
+/* ═══ "Manuel Santos" — nombre principal grande ═══ */
+.hero-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(35px, 4vw, 64px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: #f0ece4;
+  margin-bottom: 16px;
+}
+
+/* ═══ "CINEMATIC & AI VISUAL DIRECTOR" — subtítulo bajo el nombre ═══ */
+.hero-title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(11px, 0.82vw, 14px);
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9a9690;
+  margin-bottom: 22px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ═══ "MEXICO CITY" — label de ubicación ═══ */
+.hero-location {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #c8b98a;
+  margin-bottom: 3px;
+}
+
+.hero-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ═══ info@gravitycam.com / amnesiacreativamx@gmail.com / www.amnesiacreativa.mx ═══ */
+.hero-link {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: #ccc9c0;
+  letter-spacing: 0.28em;
+  pointer-events: none;
+}
+
+/* 16:9 hero image area */
+.hero-image-placeholder {
+  position: relative;
+  z-index: 1;
+  padding: 0 clamp(32px, 8vw, 160px);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.hero-image-area {
+  width: 100%;
+  max-height: 30vh;
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  object-fit: cover;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  right: clamp(32px, 8vw, 160px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, #c8b98a, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0% {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scaleY(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleY(1);
+  }
+}
+
+
+/* ============================================================
+   SECTION 2 â€” EXECUTIVE PROFILE
+   ============================================================ */
+.section--profile {
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.profile-content {
+  max-width: 900px;
+}
+
+/* Two-column layout for profile text */
+.profile-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+/* ═══ Párrafos de "Executive Profile" (texto largo de descripción) ═══ */
+.profile-text {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: #f0ece4;
+  opacity: 0.88;
+}
+
+
+/* ============================================================
+   SECTION 3 â€” CORE AREAS
+   ============================================================ */
+.section--core {
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.core-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 80px;
+}
+
+.core-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ═══ Items de lista en "Core Areas" (Cinematic Direction, Color Grading, etc.) ═══ */
+.core-list li {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 1.4vw, 23px);
+  font-weight: 300;
+  color: #f0ece4;
+  line-height: 1.2;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  /* no transition â€” non-interactive */
+}
+
+/* no hover â€” non-interactive iPad presentation */
+
+.core-list li:last-child {
+  border-bottom: none;
+}
+
+.core-column--right .core-list li {
+  color: #f0ece4;
+}
+
+/* no hover */
+
+
+/* ============================================================
+   SECTION 4 â€” BRANDS
+   ============================================================ */
+.section--brands {
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+/* ═══ Título grande en "Selected Brand Collaborations" ═══ */
+.brands-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(24px, 2.5vw, 47px);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: #f0ece4;
+  margin-bottom: 32px;
+}
+
+/* ═══ Nombres de marcas (Nike, Apple, Netflix, etc.) ═══ */
+.brands-list {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: clamp(14px, 0.9vw, 15px);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #c8b98a;
+  line-height: 2.2;
+  max-width: 1000px;
+  word-spacing: 0.1em;
+}
+
+.brands-image-placeholder {
+  margin-top: 32px;
+  width: 100%;
+  max-height: 30vh;
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  object-fit: cover;
+}
+
+
+/* ============================================================
+   SECTION 5 â€” FILM WORK
+   ============================================================ */
+.section--films {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.placeholder--film {
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.film-credits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* ═══ Sub-labels dorados: "FEATURE FILMS" / "DOCUMENTARIES" ═══ */
+.film-category {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #c8b98a;
+  margin-bottom: 16px;
+}
+
+.film-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.film-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.film-list li:last-child {
+  border-bottom: none;
+}
+
+/* ═══ Título de película en itálica (ej: "De Chichulub a Tunguska") ═══ */
+.film-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 1.45vw, 22px);
+  font-weight: 400;
+  font-style: italic;
+  color: #f0ece4;
+}
+
+/* ═══ Info secundaria de película (ej: "Siberia, Russia & Yucatán, Mexico") ═══ */
+.film-meta {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #8a8480;
+}
+
+/* 2Ã—2 video grid â€” hidden temporarily */
+.video-grid {
+  display: none;
+}
+
+.video-placeholder {
+  display: none;
+}
+
+.video-placeholder-label {
+  display: none;
+}
+
+
+/* ============================================================
+   SECTION 6 â€” CORPORATE
+   ============================================================ */
+.section--corporate {
+  padding-top: 5vh;
+  padding-bottom: 4vh;
+}
+
+.corporate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 64px;
+  margin-bottom: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.corporate-block {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.corporate-block--wide {
+  grid-column: span 2;
+}
+
+/* Grupo HERMES inner 2-column: left=HERMES info, right=other clients */
+.hermes-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 64px;
+}
+
+.hermes-clients {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 64px;
+}
+
+.corporate-block-inner {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.corporate-block-inner:first-child {
+  padding-top: 0;
+}
+
+.corporate-block-inner:last-child {
+  border-bottom: none;
+}
+
+/* ═══ Nombre del cliente corporativo (Corvaglia, EY, Grupo HERMES, etc.) ═══ */
+.corporate-client {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 1.3vw, 21px);
+  font-weight: 400;
+  color: #f0ece4;
+  margin-bottom: 5px;
+}
+
+/* ═══ Descripción del proyecto corporativo ("Factory Documentary Production") ═══ */
+.corporate-detail {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #8a8480;
+  line-height: 1.5;
+}
+
+.corporate-sublist {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 32px;
+}
+
+/* ═══ Sub-items corporativos ("NAIM", "Deep Drainage System", etc.) ═══ */
+.corporate-sublist li {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #9a9690;
+}
+
+.corporate-sublist li::before {
+  content: '\2014';
+  margin-right: 6px;
+  color: #8a8480;
+}
+
+/* Vertical version of sublist for Grupo HERMES */
+.corporate-sublist-v {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.corporate-sublist-v li {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #9a9690;
+}
+
+.corporate-sublist-v li::before {
+  content: '\2014';
+  margin-right: 6px;
+  color: #8a8480;
+}
+
+.corporate-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.placeholder--corporate {
+  max-height: 18vh;
+  aspect-ratio: 16 / 9;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  object-fit: cover;
+}
+
+
+/* ============================================================
+   SECTION 7 â€” AI & EMERGING VISUAL SYSTEMS
+   ============================================================ */
+.section--ai {
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.section-label--ai {
+  color: #c8b98a;
+}
+
+/* ═══ Subtítulo bajo el label de AI section ═══ */
+.ai-subtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8a8480;
+  margin-top: -19px;
+  margin-bottom: 0;
+}
+
+/* ═══ Fila con subtítulo + logo Amnesia Creativa ═══ */
+.ai-subtitle-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+/* ═══ Logo de AmnesIA Creativa inline con el subtítulo ═══ */
+.amnesia-logo {
+  display: inline-block;
+  height: 65px;
+  width: auto;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.ai-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1100px;
+  gap: 0;
+}
+
+/* ═══ Items de "AI & Emerging Visual Systems" (Generative Image, etc.) ═══ */
+.ai-list li {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(18px, 1.6vw, 24px);
+  font-weight: 300;
+  color: #f0ece4;
+  opacity: 0.82;
+  padding: 16px 32px 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  line-height: 1.3;
+  transition: color 0.4s ease, opacity 0.4s ease;
+}
+
+.ai-list li:nth-child(odd) {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ai-list li:nth-child(even) {
+  padding-left: 32px;
+}
+
+.ai-list li:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.ai-list li:first-child,
+.ai-list li:nth-child(2) {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* no hover */
+
+
+/* ============================================================
+   SECTION 8 â€” EDUCATION
+   ============================================================ */
+.section--education {
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+/* Two-column education layout */
+.education-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.education-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 19px 32px 19px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.education-list li:nth-child(even) {
+  padding-left: 32px;
+  padding-right: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ═══ Nombre del título/carrera ("Bachelor of Fine Arts", etc.) ═══ */
+.edu-degree {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 400;
+  color: #f0ece4;
+}
+
+/* ═══ Nombre de universidad/institución (NYU, ITAM, etc.) ═══ */
+.edu-institution {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: #8a8480;
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   SECTION 9 â€” TECHNOLOGIES
+   ============================================================ */
+.section--tech {
+  padding-top: 4vh;
+  padding-bottom: 0;
+}
+
+.tech-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ═══ Lista de tecnologías y plataformas (Adobe Premiere, DaVinci, etc.) ═══ */
+.tech-list li {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(17px, 1.3vw, 20px);
+  font-weight: 300;
+  color: #9a9690;
+  padding: 16px 32px 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color 0.3s ease;
+}
+
+.tech-list li:nth-child(even) {
+  padding-left: 32px;
+  padding-right: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tech-list li:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+/* no hover */
+
+
+/* â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.site-footer {
+  margin-top: 4vh;
+  padding: 40px clamp(32px, 8vw, 160px) 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+/* ═══ "Manuel Santos" en el footer ═══ */
+.footer-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #f0ece4;
+}
+
+/* ═══ "CINEMATIC & AI VISUAL DIRECTOR" en el footer ═══ */
+.footer-tagline {
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8a8480;
+  margin-bottom: 10px;
+}
+
+/* ═══ Links en el footer (emails, web) ═══ */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 13px;
+  justify-content: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  color: #c8b98a;
+}
+
+.footer-links a {
+  transition: color 0.3s ease;
+}
+
+/* no hover */
+
+.footer-sep {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* ═══ "© 2025 MANUEL SANTOS. ALL RIGHTS RESERVED." ═══ */
+.footer-copy {
+  margin-top: 13px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: rgba(90, 87, 84, 0.6);
+  text-transform: uppercase;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  :root {
+    --section-pad-h: clamp(24px, 5vw, 64px);
+  }
+
+  .core-grid {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+
+  .film-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .film-credits {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .corporate-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .corporate-block--wide {
+    grid-column: span 2;
+  }
+
+  .corporate-images {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-list li {
+    border-right: none !important;
+    padding-left: 0 !important;
+  }
+
+  .ai-list li:nth-last-child(-n+2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .ai-list li:last-child {
+    border-bottom: none;
+  }
+
+  .education-list {
+    grid-template-columns: 1fr;
+  }
+
+  .education-list li:nth-child(even) {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .tech-list {
+    grid-template-columns: 1fr;
+  }
+
+  .tech-list li:nth-child(even) {
+    padding-left: 0;
+    border-left: none;
+  }
+
+  .tech-list li:nth-last-child(-n+2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .hero-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hero-contacts {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .hero-name {
+    font-size: clamp(28px, 7vw, 47px);
+  }
+
+  .profile-columns {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --section-pad-h: 24px;
+    --section-pad-v: 5vh;
+  }
+
+  .hero-content {
+    padding: 0 24px;
+  }
+
+  .hero-image-placeholder {
+    padding: 0 24px;
+  }
+
+  .brands-title {
+    font-size: clamp(20px, 6vw, 34px);
+  }
+
+  .film-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .corporate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .corporate-block--wide {
+    grid-column: span 1;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-sep {
+    display: none;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .section--hero {
+    min-height: -webkit-fill-available;
+  }
+}
