@@ -945,6 +945,18 @@ img {
     grid-template-columns: 1fr;
     gap: 19px;
   }
+
+  /* Reduce gap between hero image and Executive Profile on iPad */
+  .section--profile {
+    padding-top: 0.5vh;
+  }
+
+  /* Align hero image with section content on iPad */
+  .hero-image-placeholder {
+    padding-left: clamp(24px, 5vw, 64px);
+    padding-right: clamp(24px, 5vw, 64px);
+    padding-bottom: 0;
+  }
 }
 
 @media (max-width: 600px) {
