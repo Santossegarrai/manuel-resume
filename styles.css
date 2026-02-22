@@ -76,7 +76,7 @@ img {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url('Assets/Background-3000x6000.png');
+  background-image: url('Assets/Background-HI.png');
   background-size: 100% 200%;
   background-repeat: no-repeat;
   background-position: center 0%;
@@ -289,7 +289,7 @@ img {
 }
 
 .profile-content {
-  max-width: 900px;
+  max-width: 1200px;
 }
 
 /* Two-column layout for profile text */
@@ -382,7 +382,7 @@ img {
   letter-spacing: 0.06em;
   color: #c8b98a;
   line-height: 2.2;
-  max-width: 1000px;
+  max-width: 100%;
   word-spacing: 0.1em;
 }
 
@@ -402,7 +402,7 @@ img {
    ============================================================ */
 .section--films {
   padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-bottom: 2vh;
 }
 
 .film-grid {
@@ -489,7 +489,7 @@ img {
    SECTION 6 â€” CORPORATE
    ============================================================ */
 .section--corporate {
-  padding-top: 5vh;
+  padding-top: 0;
   padding-bottom: 4vh;
 }
 
@@ -991,4 +991,79 @@ img {
   .section--hero {
     min-height: -webkit-fill-available;
   }
+}
+
+/* Restaura el padding del hero-image-placeholder al mismo valor
+   que el padding del section → hero y brands quedan del mismo ancho */
+.hero-image-placeholder {
+  padding-left: clamp(32px, 8vw, 160px);
+  padding-right: clamp(32px, 8vw, 160px);
+}
+
+/* ─── MOD-IMG BASE — border-radius + marco 1px en todas las fotos ─── */
+.mod-img {
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.20),
+    0 3px 18px rgba(0, 0, 0, 0.50);
+}
+
+/* IMG-001 — Hero: respeta el aspect ratio natural de la imagen */
+.mod-img--hero {
+  display: block;
+  width: 100%;
+  height: auto;
+  align-self: flex-start;
+  /* evita stretch del contenedor flex:1 */
+}
+
+/* IMG-002 — Brands: mismo tamaño que brands-image-placeholder original */
+.brands-image-wrap {
+  margin-top: 32px;
+}
+
+.mod-img--brands {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* IMG-003 a 005 — Film stills: mismo tamaño que placeholder--film */
+.mod-img--film {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: contain;
+}
+
+/* IMG-006 a 009 — Corporate: mismo tamaño que placeholder--corporate */
+.mod-img--corporate {
+  display: block;
+  width: 100%;
+  max-height: 18vh;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Espacio entre imágenes AI y el logo Co-Founder */
+.ai-subtitle-row {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+/* Logo Amnesia en fila Co-Founder — tamaño reducido */
+.amnesia-logo {
+  height: 32px;
+  width: auto;
+}
+
+/* Espacio entre IMG-010 y el grid de 3-5 */
+.film-grid {
+  margin-top: 32px;
 }

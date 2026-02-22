@@ -42,10 +42,9 @@
       </div>
     </div>
 
-    <!-- 16:9 hero image area -->
+    <!-- IMG-001: Hero -->
     <div class="hero-image-placeholder fade-in">
-      <!-- Replaceable: swap with <img src="hero.jpg"> or <video> -->
-      <div class="hero-image-area" role="img" aria-label="Hero image placeholder"></div>
+      <img src="./images/IMG-001.png" alt="Hero visual" class="mod-img mod-img--hero" />
     </div>
 
     <div class="scroll-indicator" aria-hidden="true">
@@ -131,8 +130,9 @@
           &middot; Zucaritas
         </p>
       </div>
-      <!-- Replaceable: swap with <img src="brands-visual.jpg"> -->
-      <div class="brands-image-placeholder fade-in" role="img" aria-label="Brand collaborations image placeholder">
+      <!-- IMG-002: Brands -->
+      <div class="brands-image-wrap fade-in">
+        <img src="./images/IMG-002.png" alt="Brand collaborations" class="mod-img mod-img--brands" />
       </div>
     </div>
   </section>
@@ -147,10 +147,16 @@
         <h2 class="section-label">Film &amp; Documentary Work</h2>
       </div>
 
+      <!-- IMG-010: Film full-width — mismo tamaño que IMG-002 -->
+      <div class="brands-image-wrap fade-in">
+        <img src="./images/IMG-010.png" alt="Film visual" class="mod-img mod-img--brands" />
+      </div>
+
+      <!-- IMG-003 a 005: Film stills -->
       <div class="film-grid fade-in">
-        <div class="placeholder placeholder--film" role="img" aria-label="Film still placeholder 1"></div>
-        <div class="placeholder placeholder--film" role="img" aria-label="Film still placeholder 2"></div>
-        <div class="placeholder placeholder--film" role="img" aria-label="Film still placeholder 3"></div>
+        <img src="./images/IMG-003.png" alt="Film still 1" class="mod-img mod-img--film" />
+        <img src="./images/IMG-004.png" alt="Film still 2" class="mod-img mod-img--film" />
+        <img src="./images/IMG-005.png" alt="Film still 3" class="mod-img mod-img--film" />
       </div>
 
       <div class="film-credits fade-in">
@@ -206,10 +212,16 @@
   ───────────────────────────────────────────── -->
   <section id="corporate" class="section section--corporate" aria-label="Corporate Projects">
     <div class="section-inner">
+      <!-- IMG-011: full-width — mismo formato que IMG-010 -->
+      <div class="brands-image-wrap fade-in" style="margin-bottom: 40px;">
+        <img src="./images/IMG-011.png" alt="Corporate visual" class="mod-img mod-img--brands" />
+      </div>
+
       <div class="fade-in">
         <div class="rule-before"></div>
         <h2 class="section-label">Corporate, Industrial<br>&amp; Infrastructure Projects</h2>
       </div>
+
       <div class="corporate-grid fade-in">
         <div class="corporate-block">
           <h3 class="corporate-client">AIFA</h3>
@@ -269,13 +281,6 @@
           <p class="corporate-detail">Industrial Documentary Production</p>
         </div>
       </div>
-      <div class="corporate-images fade-in">
-        <div class="placeholder placeholder--corporate" role="img" aria-label="Corporate project placeholder"></div>
-        <div class="placeholder placeholder--corporate" role="img" aria-label="Corporate project placeholder"></div>
-        <div class="placeholder placeholder--corporate" role="img" aria-label="Corporate project placeholder"></div>
-        <div class="placeholder placeholder--corporate" role="img" aria-label="Corporate project placeholder"></div>
-      </div>
-    </div>
   </section>
 
   <!-- ─────────────────────────────────────────────
@@ -286,9 +291,18 @@
       <div class="fade-in">
         <div class="rule-before"></div>
         <h2 class="section-label section-label--ai">AI &amp; Emerging<br>Visual Systems</h2>
+      </div>
+      <!-- IMG-006 a 009: justo debajo del título AI -->
+      <div class="corporate-images fade-in">
+        <img src="./images/IMG-006.png" alt="AI visual 1" class="mod-img mod-img--corporate" />
+        <img src="./images/IMG-007.png" alt="AI visual 2" class="mod-img mod-img--corporate" />
+        <img src="./images/IMG-008.png" alt="AI visual 3" class="mod-img mod-img--corporate" />
+        <img src="./images/IMG-009.png" alt="AI visual 4" class="mod-img mod-img--corporate" />
+      </div>
+      <div class="fade-in">
         <div class="ai-subtitle-row">
-          <p class="ai-subtitle">Co-Founder &amp; Creative Director — Amnesia Creativa</p>
           <img src="Assets/Amnesia-Negro.png" alt="AmnesIA Creativa" class="amnesia-logo" />
+          <p class="ai-subtitle">Co-Founder &amp; Creative Director — Amnesia Creativa</p>
         </div>
       </div>
       <ul class="ai-list fade-in">
@@ -321,7 +335,7 @@
           <span class="edu-institution">Escuela Activa de Fotografía, Mexico City</span>
         </li>
         <li>
-          <span class="edu-degree">Lighting for Photography</span>
+          <span class="edu-degree">Photography Studio Lighting</span>
           <span class="edu-institution">New York University (NYU)</span>
         </li>
         <li>
@@ -353,6 +367,7 @@
     <footer class="site-footer fade-in">
       <p class="footer-name">Manuel Santos</p>
       <p class="footer-tagline">Cinematic &amp; AI Visual Director</p>
+      <!-- footer-links oculto temporalmente
       <div class="footer-links">
         <a href="mailto:info@gravitycamp.com">info@gravitycamp.com</a>
         <span class="footer-sep">·</span>
@@ -360,6 +375,7 @@
         <span class="footer-sep">·</span>
         <a href="https://www.amnesiacreativa.mx" target="_blank" rel="noopener">amnesiacreativa.mx</a>
       </div>
+      -->
       <p class="footer-copy">&copy; 2025 Manuel Santos. All rights reserved.</p>
     </footer>
   </section>
